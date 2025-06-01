@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../database/database_helper.dart';
+import '../controllers/filme_controller.dart';
 import '../models/filme.dart';
 
 class HomeView extends StatefulWidget {
@@ -10,6 +10,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final FilmeController _controller = FilmeController();
   List<Filme> filmes = [];
 
   @override
@@ -19,15 +20,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> carregarFilmes() async {
-    final data = await DatabaseHelper.instance.getFilmes();
+    final data = await _controller.listarFilmes();
     setState(() {
       filmes = data;
     });
   }
 
   Future<void> deletarFilme(int id) async {
-    await DatabaseHelper.instance.deleteFilme(id);
-    carregarFilmes();
+    await _controller.deletarFilme(id);
+    await carregarFilmes();
   }
 
   @override
