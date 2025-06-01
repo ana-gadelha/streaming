@@ -18,7 +18,6 @@ class _AddFilmeViewState extends State<AddFilmeView> {
   final TextEditingController generoController = TextEditingController();
   final TextEditingController faixaEtariaController = TextEditingController();
   final TextEditingController duracaoController = TextEditingController();
-  final TextEditingController pontuacaoController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
   final TextEditingController anoController = TextEditingController();
   final TextEditingController urlImagemController = TextEditingController();
@@ -50,7 +49,6 @@ class _AddFilmeViewState extends State<AddFilmeView> {
     generoController.clear();
     faixaEtariaController.clear();
     duracaoController.clear();
-    pontuacaoController.clear();
     descricaoController.clear();
     anoController.clear();
     urlImagemController.clear();
@@ -90,7 +88,7 @@ class _AddFilmeViewState extends State<AddFilmeView> {
               },
               validator: (value) =>
                   value == null ? 'Selecione a faixa etária' : null,
-              items: const ['Livre', '12 anos', '16 anos', '18 anos']
+              items: const ['Livre','10 anos', '12 anos', '16 anos', '18 anos']
                 .map((faixa) => DropdownMenuItem(
                   value: faixa,
                   child: Text(faixa),

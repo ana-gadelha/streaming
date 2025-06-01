@@ -26,8 +26,15 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(titles[currentIndex]),
-        centerTitle: true,
+        title: Text(titles[currentIndex],
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
       ),
       body: pages[currentIndex],
       floatingActionButton: FloatingActionButton(
@@ -37,10 +44,13 @@ class _MainViewState extends State<MainView> {
             currentIndex = currentIndex == 0 ? 1 : 0;
           });
         },
+        backgroundColor: Colors.blue,
+        shape: const CircleBorder(),
         child: Icon(
           currentIndex == 0 ? Icons.add : Icons.save,
+          color: Colors.white,
         ),
-      ),
+      )
     );
   }
 }

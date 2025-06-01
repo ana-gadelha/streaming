@@ -66,7 +66,16 @@ class _HomeViewState extends State<HomeView> {
               ),
               title: Text(filme.titulo),
               subtitle: Text('${filme.ano} • ${filme.genero}'),
-              trailing: Text('${filme.pontuacao} ⭐'),
+              trailing: RatingBarIndicator(
+                rating: filme.pontuacao,
+                itemBuilder: (context, index) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                itemCount: 5,
+                itemSize: 20.0,
+                direction: Axis.horizontal,
+              ),
             ),
           ),
         );
