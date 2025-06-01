@@ -39,60 +39,63 @@ class _AddFilmeViewState extends State<AddFilmeView> {
       const SnackBar(content: Text('Filme cadastrado com sucesso!')),
     );
 
-    Navigator.pop(context); // Volta para a tela anterior
+    // Limpa os campos após salvar
+    tituloController.clear();
+    generoController.clear();
+    faixaEtariaController.clear();
+    duracaoController.clear();
+    pontuacaoController.clear();
+    descricaoController.clear();
+    anoController.clear();
+    urlImagemController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cadastrar Filme'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: tituloController,
-              decoration: const InputDecoration(labelText: 'Título'),
-            ),
-            TextField(
-              controller: generoController,
-              decoration: const InputDecoration(labelText: 'Gênero'),
-            ),
-            TextField(
-              controller: faixaEtariaController,
-              decoration: const InputDecoration(labelText: 'Faixa Etária'),
-            ),
-            TextField(
-              controller: duracaoController,
-              decoration: const InputDecoration(labelText: 'Duração'),
-            ),
-            TextField(
-              controller: pontuacaoController,
-              decoration: const InputDecoration(labelText: 'Pontuação (0.0 até 10.0)'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: descricaoController,
-              decoration: const InputDecoration(labelText: 'Descrição'),
-              maxLines: 3,
-            ),
-            TextField(
-              controller: anoController,
-              decoration: const InputDecoration(labelText: 'Ano'),
-            ),
-            TextField(
-              controller: urlImagemController,
-              decoration: const InputDecoration(labelText: 'URL da Imagem'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: salvarFilme,
-              child: const Text('Salvar'),
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          TextField(
+            controller: tituloController,
+            decoration: const InputDecoration(labelText: 'Título'),
+          ),
+          TextField(
+            controller: generoController,
+            decoration: const InputDecoration(labelText: 'Gênero'),
+          ),
+          TextField(
+            controller: faixaEtariaController,
+            decoration: const InputDecoration(labelText: 'Faixa Etária'),
+          ),
+          TextField(
+            controller: duracaoController,
+            decoration: const InputDecoration(labelText: 'Duração'),
+          ),
+          TextField(
+            controller: pontuacaoController,
+            decoration: const InputDecoration(labelText: 'Pontuação (0.0 até 10.0)'),
+            keyboardType: TextInputType.number,
+          ),
+          TextField(
+            controller: descricaoController,
+            decoration: const InputDecoration(labelText: 'Descrição'),
+            maxLines: 3,
+          ),
+          TextField(
+            controller: anoController,
+            decoration: const InputDecoration(labelText: 'Ano'),
+          ),
+          TextField(
+            controller: urlImagemController,
+            decoration: const InputDecoration(labelText: 'URL da Imagem'),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: salvarFilme,
+            child: const Text('Salvar'),
+          ),
+        ],
       ),
     );
   }

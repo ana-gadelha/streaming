@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'views/home_view.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'views/main_view.dart';
 
 void main() {
+  // Inicializa o sqflite para Desktop (Windows, Linux, Mac)
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
   runApp(const MyApp());
 }
 
@@ -17,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const HomeView(),
+      home: const MainView(),
     );
   }
 }
