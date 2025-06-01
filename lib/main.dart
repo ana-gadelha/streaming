@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'views/main_view.dart';
 
-void main() {
-  // Inicializa o sqflite para Desktop (Windows, Linux, Mac)
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
 
+
+void main() {
   runApp(const MyApp());
 }
 

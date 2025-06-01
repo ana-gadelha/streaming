@@ -21,7 +21,7 @@ class DatabaseHelper {
     return _database!;
   }
 
-  // Caminho onde o banco será salvo
+  // Caminho onde o banco será salvo (Cria ou abre o banco SQLite)
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
@@ -49,6 +49,8 @@ class DatabaseHelper {
       )
     ''');
   }
+
+  // FUNÇÕES CRUD do Banco.
 
   // 🔹 Inserir um filme
   Future<int> insertFilme(Filme filme) async {
