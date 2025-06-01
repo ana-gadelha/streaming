@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../models/filme.dart';
 import '../database/database_helper.dart';
+
 
 class AddFilmeView extends StatefulWidget {
   const AddFilmeView({super.key});
@@ -22,6 +24,7 @@ class _AddFilmeViewState extends State<AddFilmeView> {
   final TextEditingController urlImagemController = TextEditingController();
 
   String? faixaSelecionada;
+  double _pontuacaoSelecionada = 0.0;
 
   // Função para salvar no banco
   void salvarFilme() async {
@@ -30,7 +33,7 @@ class _AddFilmeViewState extends State<AddFilmeView> {
       genero: generoController.text,
       faixaEtaria: faixaSelecionada ?? '',
       duracao: duracaoController.text,
-      pontuacao: double.tryParse(pontuacaoController.text) ?? 0.0,
+      pontuacao: _pontuacaoSelecionada,
       descricao: descricaoController.text,
       ano: anoController.text,
       urlImagem: urlImagemController.text,
@@ -52,7 +55,10 @@ class _AddFilmeViewState extends State<AddFilmeView> {
     anoController.clear();
     urlImagemController.clear();
 
-    setState(() {}); // Atualiza a tela para refletir a nova lista de filmes.
+    setState(() {
+      _pontuacaoSelecionada = 0.0;
+      faixaSelecionada = null;
+    }); // Atualiza a tela para refletir a nova lista de filmes.
   }
 
   @override
@@ -97,12 +103,23 @@ class _AddFilmeViewState extends State<AddFilmeView> {
               validator: (value) =>
                   value == null || value.isEmpty ? 'Informe quanto tempo tem o filme' : null,
             ),
-            TextFormField(
-              controller: pontuacaoController,
-              decoration: const InputDecoration(labelText: 'Pontuação (0.0 a 10.0)'),
-              keyboardType: TextInputType.number,
-              validator: (value) =>
-                  value == null || value.isEmpty ? 'Informe a pontuação' : null,
+            const SizedBox(height: 10),
+            const Text('Pontuação (de 0 a 5 estrelas):'),
+            RatingBar.builder(
+              initialRating: _pontuacaoSelecionada,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                setState(() {
+                  _pontuacaoSelecionada = rating;
+                });
+              },
             ),
             TextFormField(
               controller: descricaoController,
