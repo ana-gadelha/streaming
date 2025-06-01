@@ -30,7 +30,6 @@ environment:
 dependencies:
   sqflite: ^2.3.0 # biblioteca que faz o SQLite funcionar no Flutter.
   path: ^1.9.0 # ajuda a definir o caminho certo onde o banco de dados será salvo no celular.
-  sqflite_common_ffi: ^2.3.0
   flutter:
     sdk: flutter
 
