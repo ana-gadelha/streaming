@@ -22,11 +22,29 @@ class _MainViewState extends State<MainView> {
     'Cadastrar Filme',
   ];
 
+  // 🔥 Função para mostrar o AlertDialog com os nomes da equipe
+  void _showEquipeDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Equipe'),
+        content: const Text('Ana Maria\nLeonardo Vilar\nPaulo Lacerda'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(titles[currentIndex],
+        title: Text(
+          titles[currentIndex],
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -35,6 +53,13 @@ class _MainViewState extends State<MainView> {
         ),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: _showEquipeDialog,
+          ),
+        ],
       ),
       body: pages[currentIndex],
       floatingActionButton: FloatingActionButton(
@@ -50,7 +75,7 @@ class _MainViewState extends State<MainView> {
           currentIndex == 0 ? Icons.add : Icons.save,
           color: Colors.white,
         ),
-      )
+      ),
     );
   }
 }
