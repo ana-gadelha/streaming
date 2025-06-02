@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import '../models/filme.dart';
 import '../database/database_helper.dart';
 
@@ -103,21 +103,22 @@ class _AddFilmeViewState extends State<AddFilmeView> {
             ),
             const SizedBox(height: 10),
             const Text('Pontuação (de 0 a 5 estrelas):'),
-            RatingBar.builder(
-              initialRating: _pontuacaoSelecionada,
-              minRating: 1,
-              direction: Axis.horizontal,
+            SmoothStarRating(
               allowHalfRating: true,
-              itemCount: 5,
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {
+              onRatingChanged: (value) {
                 setState(() {
-                  _pontuacaoSelecionada = rating;
+                  _pontuacaoSelecionada = value;
                 });
               },
+              starCount: 5,
+              rating: _pontuacaoSelecionada,
+              size: 40.0,
+              filledIconData: Icons.star,
+              halfFilledIconData: Icons.star_half,
+              defaultIconData: Icons.star_border,
+              color: Colors.amber,
+              borderColor: Colors.grey,
+              spacing: 0.0,
             ),
             TextFormField(
               controller: descricaoController,
