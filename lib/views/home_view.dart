@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../controllers/filme_controller.dart';
 import '../models/filme.dart';
+import 'detalhes_filme_view.dart';
+import 'editar_filme_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -53,8 +55,7 @@ class _HomeViewState extends State<HomeView> {
             deletarFilme(filme.id!);
           },
           child: Card(
-            margin:
-            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: ListTile(
               leading: Image.network(
                 filme.urlImagem,
@@ -76,6 +77,35 @@ class _HomeViewState extends State<HomeView> {
                 itemSize: 20.0,
                 direction: Axis.horizontal,
               ),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => Wrap(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.info),
+                        title: const Text('Exibir Dados'),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => DetalhesFilmeView(filme: filme),
+                          ));
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.edit),
+                        title: const Text('Alterar'),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => EditarFilmeView(filme: filme),
+                          ));
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         );
