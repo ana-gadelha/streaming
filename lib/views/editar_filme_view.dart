@@ -24,13 +24,19 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
   String? faixaSelecionada;
   double _pontuacaoSelecionada = 0.0;
 
+  final List<String> _opcoesFaixaEtaria = const ['Livre', '10 anos', '12 anos', '16 anos', '18 anos'];
+
   @override
   void initState() {
     super.initState();
     final filme = widget.filme;
     tituloController = TextEditingController(text: filme.titulo);
     generoController = TextEditingController(text: filme.genero);
-    faixaSelecionada = filme.faixaEtaria;
+    if (_opcoesFaixaEtaria.contains(filme.faixaEtaria)){
+      faixaSelecionada = filme.faixaEtaria;
+    }else{
+      faixaSelecionada = null;
+    }
     duracaoController = TextEditingController(text: filme.duracao);
     _pontuacaoSelecionada = filme.pontuacao;
     descricaoController = TextEditingController(text: filme.descricao);
@@ -38,26 +44,41 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
     urlImagemController = TextEditingController(text: filme.urlImagem);
   }
 
-  void atualizarFilme() async {
-    final filmeAtualizado = Filme(
-      id: widget.filme.id,
-      titulo: tituloController.text,
-      genero: generoController.text,
-      faixaEtaria: faixaSelecionada ?? '',
-      duracao: duracaoController.text,
-      pontuacao: _pontuacaoSelecionada,
-      descricao: descricaoController.text,
-      ano: anoController.text,
-      urlImagem: urlImagemController.text,
-    );
+  @override
+  void dispose() {
+    //Descarta todos os controllers para liberar recursos
+    tituloController.dispose();
+    generoController.dispose();
+    duracaoController.dispose();
+    descricaoController.dispose();
+    anoController.dispose();
+    urlImagemController.dispose();
+    super.dispose();
+  }
 
-    await DatabaseHelper.instance.updateFilme(filmeAtualizado);
+  void atualizarFilme() async {  //Renomeado para seguir a convenção de métodos privados
+    if (_formKey.currentState!.validate()) {
+      final filmeAtualizado = Filme(
+        id: widget.filme.id,
+        titulo: tituloController.text,
+        genero: generoController.text,
+        faixaEtaria: faixaSelecionada ?? widget.filme.faixaEtaria,
+        duracao: duracaoController.text,
+        pontuacao: _pontuacaoSelecionada,
+        descricao: descricaoController.text,
+        ano: anoController.text,
+        urlImagem: urlImagemController.text,
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Filme atualizado com sucesso!')),
-    );
+      await DatabaseHelper.instance.updateFilme(filmeAtualizado);
 
-    Navigator.pop(context);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Filme atualizado com sucesso!')),
+        );
+        Navigator.pop(context, true);
+      }
+    }
   }
 
   @override

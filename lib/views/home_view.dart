@@ -89,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
                           Navigator.pop(context);
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => DetalhesFilmeView(filme: filme),
-                          ));
+                          )).then((_) => carregarFilmes());
                         },
                       ),
                       ListTile(
