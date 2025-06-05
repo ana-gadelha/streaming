@@ -32,9 +32,9 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
     final filme = widget.filme;
     tituloController = TextEditingController(text: filme.titulo);
     generoController = TextEditingController(text: filme.genero);
-    if (_opcoesFaixaEtaria.contains(filme.faixaEtaria)){
+    if (_opcoesFaixaEtaria.contains(filme.faixaEtaria)) {
       faixaSelecionada = filme.faixaEtaria;
-    }else{
+    } else {
       faixaSelecionada = null;
     }
     duracaoController = TextEditingController(text: filme.duracao);
@@ -46,7 +46,6 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
 
   @override
   void dispose() {
-    //Descarta todos os controllers para liberar recursos
     tituloController.dispose();
     generoController.dispose();
     duracaoController.dispose();
@@ -56,7 +55,7 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
     super.dispose();
   }
 
-  void atualizarFilme() async {  //Renomeado para seguir a convenção de métodos privados
+  void atualizarFilme() async {
     if (_formKey.currentState!.validate()) {
       final filmeAtualizado = Filme(
         id: widget.filme.id,
@@ -76,7 +75,7 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Filme atualizado com sucesso!')),
         );
-        Navigator.pop(context, true);
+        Navigator.pop(context, true); // retorna true para sinalizar que houve alteração
       }
     }
   }
@@ -109,7 +108,7 @@ class _EditarFilmeViewState extends State<EditarFilmeView> {
                 value: faixaSelecionada,
                 onChanged: (value) => setState(() => faixaSelecionada = value),
                 validator: (value) => value == null ? 'Selecione a faixa etária' : null,
-                items: const ['Livre', '10 anos', '12 anos', '16 anos', '18 anos']
+                items: _opcoesFaixaEtaria
                     .map((faixa) => DropdownMenuItem(value: faixa, child: Text(faixa)))
                     .toList(),
                 decoration: const InputDecoration(labelText: 'Faixa Etária'),

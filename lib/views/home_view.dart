@@ -87,9 +87,14 @@ class _HomeViewState extends State<HomeView> {
                         title: const Text('Exibir Dados'),
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => DetalhesFilmeView(filme: filme),
-                          )).then((_) => carregarFilmes());
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (_) =>
+                                DetalhesFilmeView(filme: filme),
+                          ))
+                              .then((_) {
+                            carregarFilmes();
+                          });
                         },
                       ),
                       ListTile(
@@ -97,9 +102,16 @@ class _HomeViewState extends State<HomeView> {
                         title: const Text('Alterar'),
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => EditarFilmeView(filme: filme),
-                          ));
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (_) =>
+                                EditarFilmeView(filme: filme),
+                          ))
+                              .then((resultado) {
+                            if (resultado == true) {
+                              carregarFilmes();
+                            }
+                          });
                         },
                       ),
                     ],
